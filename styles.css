@@ -25,7 +25,7 @@ body{
     background-color: var(--foreground-color);
 }
 
-.paddle .left{
+.paddle.left{
     left: .1vw;
 }
 
@@ -44,6 +44,10 @@ body{
     height: 2.5vh;
     width: 2.5vh;
     background-color: var(--foreground-color);
+}
+
+.ball.hidden{
+    display: none;
 }
 
 .score{
@@ -65,4 +69,24 @@ body{
 .score > :first-child{
     text-align: right;
     border-right: .5vh  solid var(--foreground-color);
+}
+#play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    padding: 20px 40px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--foreground-color);
+    font-size: 7.5vh; 
+}
+
+/* Hide the play button after being clicked */
+#play-button.hidden {
+    display: none;
 }

@@ -1,12 +1,20 @@
 import Ball from './Ball.js'
 import Paddle from './paddle.js'
 
-
 const ball = new Ball(document.getElementById('ball'));
 const playerPaddle = new Paddle(document.getElementById('player-paddle'));
 const computerPaddle = new Paddle(document.getElementById('computer-paddle'));
 const playerScore = document.getElementById('player-score');
 const computerScore = document.getElementById('computer-score');
+const playButton = document.getElementById('play-button');
+
+const scoreSound = new Audio('./Score.wav');
+
+playButton.addEventListener('click', () => {
+    playButton.classList.add('hidden'); 
+    document.getElementById('ball').classList.remove('hidden'); 
+    window.requestAnimationFrame(update); 
+});
 
 let lastTime;
 function update(time){
@@ -23,14 +31,18 @@ function update(time){
     lastTime = time;
     window.requestAnimationFrame(update); // update function is called infinitely if something on screen is allowed to change
 }
+
 document.addEventListener('mousemove', e=>{
     playerPaddle.position = (e.y/window.innerHeight) * 100;
 })
+
 function isGameOver(){
     const rect = ball.rect();
-    return rect.right >= window.innerWidth|| rect.left<=0;
+    return rect.right >= window.innerWidth || rect.left<=0;
 }
+
 function handleGameOver(){
+    scoreSound.play();
     const rect = ball.rect();
     if(rect.right>= window.innerWidth){
        playerScore.textContent = parseInt(playerScore.textContent)+1; 
@@ -40,4 +52,3 @@ function handleGameOver(){
     ball.reset();
     computerPaddle.reset();
 }
-window.requestAnimationFrame(update); //if something on screen is allowed to change then it calls update function
